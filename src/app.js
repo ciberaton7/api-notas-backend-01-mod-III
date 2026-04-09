@@ -15,7 +15,7 @@ app.use('/uploads', express.static('uploads'));
 app.get('/api/health', (req, res) => 
                                     {
                                         res.status(200).json(
-                                                                { status: 'ok',message: 'API de notas activa'}
+                                                                { status: 'ok',message: 'API de notas activa y funcionando' }
                                                             );
                                     });
 
