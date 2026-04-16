@@ -194,3 +194,7 @@ $RECYCLE.BIN/
 
 # Ignorar variables de entorno (claves secretas)
 .env
+
+
+#Dependencias
+node_modules/
