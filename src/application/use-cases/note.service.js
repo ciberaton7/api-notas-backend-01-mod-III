@@ -11,14 +11,14 @@ export default class NoteService
 
     async createNote(noteData)
     {
-        if (!DataTransfer.title||!DataTransfer.content){
+        if (!noteData.title || !noteData.content) {//(!DataTransfer.title||!DataTransfer.content){
             throw new Error("Title and content are required");}
 
-            const note = new NoteEntity(data);
-            return await this.noteRepository.create(note);
+            const note = new NoteEntity(noteData);
+            return await this.noteRepository.save(note);
     }
 
-    async getNoteByUser(userId)
+    async getNotesByUserId(userId)
     {
         return await this.noteRepository.findByUserId(userId);
         

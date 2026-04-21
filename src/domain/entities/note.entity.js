@@ -1,5 +1,5 @@
 export default class NoteEntity{
-    constructor({id, title, content, imageUrl, isPrivate,password,userid})
+    constructor({id, title, content, imageUrl, isPrivate,password,userId})
     {
         this.id = id;
         this.title=title;
@@ -7,7 +7,7 @@ export default class NoteEntity{
         this.imageUrl=imageUrl||null;
         this.isPrivate=isPrivate||false;
         this.password= password||null;
-        this.userid=userid;
+        this.userId=userId;
     }
 
 }

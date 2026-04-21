@@ -6,7 +6,7 @@ export default class NoteMongoRepository {
     async save(noteEntity){
         const note = new NoteModel({
             title: noteEntity.title,
-            Content: noteEntity.Content,
+            content: noteEntity.content,
             imageUrl: noteEntity.imageUrl,
             isPrivate: noteEntity.isPrivate,
             password: noteEntity.password,
