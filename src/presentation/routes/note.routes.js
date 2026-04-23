@@ -19,6 +19,22 @@ const noteController = new NoteController(noteService);
 
 const router = Router();
 
+/*
+ * @swagger
+ * /notes:
+ * get:
+ * summary: Obtener todas las notas del usuario autenticado
+ * tags: [Notes]
+ * security:
+ * - bearerAuth: []
+ * responses:
+ * 200:
+ * description: Lista de notas obtenida exitosamente
+ * 401:
+ * description: No autorizado, token faltante o inválido
+ */
+
+
 //definir las rutas para las notas  
 //comentado sin seguuridad
 router.post("/", upload.single('image'), noteController.createNote);
@@ -30,6 +46,12 @@ router.get("/", noteController.getNotesByUserId);
 //definir las rutas para las notas
 //router.post("/",authMiddleware, upload.single('image'),noteController.createNote);
 //router.get("/notes",authMiddleware,noteController.getNotesByUserId);
+
+// 1. Las tres rutas NUEVAS para la primera tarea (Tarea 1: Implementado getById, update y delete)
+router.get("/:id", noteController.getNoteById); 
+router.put("/:id", noteController.updateNote);
+router.delete("/:id", noteController.deleteNote);
+
 
 
 export default router;

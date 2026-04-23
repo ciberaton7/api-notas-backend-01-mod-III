@@ -8,6 +8,7 @@ import { LoggerMiddleware } from './presentation/middlewares/logger.middleware.j
 import noteRoutes from './presentation/routes/note.routes.js';
 import { connectMongo } from './infraestructure/database/mongo/conection.js';
 import {connectMysql} from './infraestructure/database/mysql/connection.js';
+import {setupSwagger} from './infraestructure/config/swagger.config.js';
 
 import dns from "node:dns/promises";
 dns.setServers(["1.1.1.1"]);
@@ -23,6 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+setupSwagger(app);
 app.use(LoggerMiddleware);
 app.use(morgan('dev'));
 //imágenes estáticas

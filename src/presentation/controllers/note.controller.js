@@ -24,4 +24,51 @@ export default class NoteController {
             res.status(404).json({ error: error.message });
         }
     }
+
+    // Métodos para la Tarea 1: getNoteById, updateNote y deleteNote
+    getNoteById = async (req, res) => {
+        try {
+            // Extraemos el ID de los parámetros de la URL (req.params)
+            const { id } = req.params;
+            
+            // Le pedimos al servicio que busque la nota
+            const note = await this.noteService.getNoteById(id);
+            
+            // Si todo sale bien, respondemos con la nota
+            res.status(200).json(note);
+        } catch (error) {
+            // Si el servicio lanza un error (ej. "Nota no encontrada"), lo capturamos
+            res.status(404).json({ message: error.message });
+        }
+    }
+
+    updateNote = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const updateData = req.body; // Aquí vienen los cambios (título, contenido, etc.)
+            
+            // Se podría recibir req.file también para cambiar imágenes
+            if (req.file) {
+                updateData.imageUrl = req.file.path;
+            }
+
+            const updatedNote = await this.noteService.updateNote(id, updateData);
+            res.status(200).json(updatedNote);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    deleteNote = async (req, res) => {
+        try {
+            const { id } = req.params;
+            
+            await this.noteService.deleteNote(id);
+            
+            // Respondemos con un mensaje de éxito
+            res.status(200).json({ message: "Note deleted successfully" });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }

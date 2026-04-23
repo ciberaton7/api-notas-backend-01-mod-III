@@ -20,4 +20,21 @@ export default class NoteMongoRepository {
         return await NoteModel.find({userId});
     }
 
+    async findById(noteId)
+    {
+        // Buscamos entre los datos de Mongo por el ID solicitado
+        return await NoteModel.findById(noteId);
+    }
+
+    async update(noteId, updateData)
+    {
+        return await NoteModel.findByIdAndUpdate(noteId, updateData, { new: true });
+    }
+
+    async delete(noteId)
+    {
+        // Eliminamos el documento permanentemente de Mongo
+        return await NoteModel.findByIdAndDelete(noteId);
+    }
+
 }
