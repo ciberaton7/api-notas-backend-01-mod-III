@@ -6,6 +6,7 @@ import morgan from 'morgan';
 
 import { LoggerMiddleware } from './presentation/middlewares/logger.middleware.js';
 import noteRoutes from './presentation/routes/note.routes.js';
+import authRoutes from './presentation/routes/auth.routes.js';
 import { connectMongo } from './infraestructure/database/mongo/conection.js';
 import {connectMysql} from './infraestructure/database/mysql/connection.js';
 import {setupSwagger} from './infraestructure/config/swagger.config.js';
@@ -29,7 +30,10 @@ app.use(LoggerMiddleware);
 app.use(morgan('dev'));
 //imágenes estáticas
 //app.use('/uploads', express.static('uploads'));
-app.use('uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
+
+app.use('/api/v1/auth',authRoutes);
+
 /*app.use('/api/v1/notes' , (requ,res,next) =>{
 
 })*/

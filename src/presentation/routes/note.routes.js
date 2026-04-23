@@ -49,8 +49,8 @@ router.get("/", noteController.getNotesByUserId);
 
 // 1. Las tres rutas NUEVAS para la primera tarea (Tarea 1: Implementado getById, update y delete)
 router.get("/:id", noteController.getNoteById); 
-router.put("/:id", noteController.updateNote);
-router.delete("/:id", noteController.deleteNote);
+router.put("/:id", authMiddleware,noteController.updateNote);
+router.delete("/:id", authMiddleware, noteController.deleteNote);
 
 
 

@@ -7,7 +7,7 @@ export const authMiddleware = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
     try {
-        const payload = JwtService.verify(token);
+        const payload = JwtService.verifyToken(token);
         req.user = payload; // Agregar la información del usuario al objeto de solicitud CONTIENE EL ID, EMAIL, ROLE INCRUSTADO EN LA REQUESTE PARA QUE EL CONTROLLER LO PUEDA USAR
         next();
     } catch (error) {

@@ -12,7 +12,7 @@ export default class AuthService {
         
         data.password = await HashService.hash(data.password);
         const newUser = new Userentity(data);
-        return await this.userRepository.save(newUser);
+        await this.userRepository.save(newUser);
         return {message: "User Registered successfully"};
     }
     async login ({email,password}) {

@@ -1,5 +1,5 @@
 import UserModel from "./user.model.js";
-import HashService from "../../services/hash.service.js";
+import HashService from "../../security/hash.service.js";
 
 export default class UserMongoRepository {
     async save(userEntity) { return await UserModel.create(userEntity); }  
