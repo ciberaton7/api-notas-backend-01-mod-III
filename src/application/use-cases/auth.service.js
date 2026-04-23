@@ -14,7 +14,7 @@ export default class AuthService {
         const newUser = new Userentity(data);
         await this.userRepository.save(newUser);
         return {message: "User Registered successfully"};
-    }
+    } 
     async login ({email,password}) {
         const user = await this.userRepository.findByEmail(email);
         if (!user) throw new Error("Invalid credentials");
