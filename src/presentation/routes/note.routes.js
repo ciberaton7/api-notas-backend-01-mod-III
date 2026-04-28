@@ -18,26 +18,51 @@ const noteService = new NoteService(noteRepository);
 const noteController = new NoteController(noteService);
 
 const router = Router();
-
-/*
- * @swagger
- * /notes:
- * get:
- * summary: Obtener todas las notas del usuario autenticado
- * tags: [Notes]
- * security:
- * - bearerAuth: []
- * responses:
- * 200:
- * description: Lista de notas obtenida exitosamente
- * 401:
- * description: No autorizado, token faltante o inválido
- */
-
-
 //definir las rutas para las notas  
 //comentado sin seguuridad
+
+/**
+ * @swagger
+ *    /notes:
+ *       post:
+ *          summary: Crear una nueva nota
+ *          tags: [Notes]
+ *          requestBody:
+ *             required: true
+ *             content:
+ *                application/json:
+ *                   schema:
+ *                      type: object
+ *                      required: [title, content]
+ *                      properties:
+ *                         title:
+ *                            type: string
+ *                            example: Mi primera nota
+ *                         content:
+ *                            type: string
+ *                            example: Contenido de prueba para la nota
+ *                      responses:
+ *                         201:
+ *                            description: Nota creada exitosamente (Principio RESTful)
+ *                         400:
+ *                            description: Error en la creación
+ */
 router.post("/", upload.single('image'), noteController.createNote);
+
+/**
+ * @swagger
+ *    /notes:
+ *       get:
+ *          summary: Obtener todas las notas del usuario autenticado
+ *          tags: [Notes]
+ *          security:
+ *             - bearerAuth: []
+ *          responses:
+ *             200:
+ *                description: Lista de notas obtenida exitosamente
+ *          401:
+ *              description: No autorizado, token faltante o inválido / no se encontraron notas
+ */
 router.get("/", noteController.getNotesByUserId);
  
 //router.post("/",authMiddleware, upload.single('image'), noteController.createNote);
@@ -48,8 +73,89 @@ router.get("/", noteController.getNotesByUserId);
 //router.get("/notes",authMiddleware,noteController.getNotesByUserId);
 
 // 1. Las tres rutas NUEVAS para la primera tarea (Tarea 1: Implementado getById, update y delete)
+
+/**
+ * @swagger
+ *    /notes/{id}:
+ *       get:
+ *          summary: Obtener una nota por su ID
+ *          tags: [Notes]
+ *          parameters:
+ *             -  in: path
+ *                name: id
+ *                schema:
+ *                   type: string
+ *                required: true
+ *                description: El ID de la nota
+ *          responses:
+ *             200:
+ *                description: Nota encontrada
+ *             404:
+ *                description: Nota no encontrada (Principio RESTful)
+ */
 router.get("/:id", noteController.getNoteById); 
+
+/**
+ * @swagger
+ *    /notes/{id}:
+ *       put:
+ *          summary: Actualizar una nota existente
+ *          tags: [Notes]
+ *          security:
+ *             - bearerAuth: []
+ *          parameters:
+ *             - in: path
+ *               name: id
+ *               schema:
+ *                 type: string
+ *               required: true
+ *               description: El ID de la nota a actualizar
+ *          requestBody:
+ *             required: true
+ *             content:
+ *                application/json:
+ *                   schema:
+ *                      type: object
+ *                      properties:
+ *                         title:
+ *                            type: string
+ *                            example: Título actualizado
+ *                         content:
+ *                            type: string
+ *                            example: Contenido actualizado
+ *          responses:
+ *             200:
+ *                description: Nota actualizada correctamente
+ *             401:
+ *                description: No autorizado, falta token JWT (Principio RESTful)
+ *             400:
+ *                description: Error en los datos enviados
+ */
 router.put("/:id", authMiddleware,noteController.updateNote);
+
+/**
+ * @swagger
+ *    /notes/{id}:
+ *       delete:
+ *          summary: Eliminar una nota por su ID
+ *          tags: [Notes]
+ *          security:
+ *             - bearerAuth: []
+ *          parameters:
+ *             - in: path
+ *               name: id
+ *               schema:
+ *                 type: string
+ *               required: true
+ *               description: El ID de la nota a eliminar
+ *          responses:
+ *             200:
+ *                description: Nota eliminada correctamente
+ *             401:
+ *                description: No autorizado, falta token JWT (Principio RESTful)
+ *             400:
+ *                description: Error al eliminar la nota
+ */
 router.delete("/:id", authMiddleware, noteController.deleteNote);
 
 
