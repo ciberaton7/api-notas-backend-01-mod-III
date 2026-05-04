@@ -63,7 +63,8 @@ router.post("/", upload.single('image'), noteController.createNote);
  *          401:
  *              description: No autorizado, token faltante o inválido / no se encontraron notas
  */
-router.get("/", noteController.getNotesByUserId);
+router.get("/", authMiddleware, noteController.getNotesByUserId);
+//router.get("/", noteController.getNotesByUserId);
  
 //router.post("/",authMiddleware, upload.single('image'), noteController.createNote);
 //router.get("/", authMiddleware, noteController.getNotesByUserId);

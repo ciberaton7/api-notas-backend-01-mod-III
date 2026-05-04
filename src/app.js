@@ -39,10 +39,10 @@ app.use('/api/v1/auth',authRoutes);
 })*/
 app.use('/api/v1/notes', noteRoutes);
 
-app.get('/api/health', (req, res) => 
+app.get('/api/v1/health', (req, res) => 
                                     {
                                         res.status(200).json(
-                                                                { status: 'ok',message: 'API de notas activa y funcionando' }
+                                                                { status: 'OK',message: 'API de notas activa y funcionando' }
                                                             );
                                     });
 
