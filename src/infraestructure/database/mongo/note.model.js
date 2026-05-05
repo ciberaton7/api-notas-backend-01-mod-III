@@ -10,7 +10,12 @@ const noteSchema = new Schema({
     content: {type: String, required:true},
     imageUrl:{type:String},
     password: {type:String},
-    userId:{type:String, required:true}
+    userId:{type:String, required:true},
+    categoryId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: false // Agregamos para el ejercicio 3.2, se pone required como false porque el requisito dice que es OPCIONAL
+    }
 } , {timestamps:true});
 
 export default model ('Note', noteSchema);

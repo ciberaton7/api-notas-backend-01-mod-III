@@ -49,6 +49,31 @@ const router = Router();
  */
 router.post("/", upload.single('image'), noteController.createNote);
 
+// Ruta para obtener una nota pública por su ID, sin necesidad de autenticación solicitada en el ejercicio 3.3
+/**
+ * @swagger
+ *    /notes/{id}/public:
+ *       get:
+ *          summary: Obtener una nota de forma pública (sin token)
+ *          description: Devuelve los detalles de una nota específica siempre y cuando NO sea privada.
+ *          tags: [Notes]
+ *          parameters:
+ *             -  in: path
+ *                name: id
+ *                schema:
+ *                  type: string
+ *                required: true
+ *                description: El ID de la nota que se quiere visualizar
+ *          responses:
+ *             200:
+ *                description: Nota pública obtenida exitosamente
+ *             403:
+ *                description: Acceso denegado (La nota existe pero es privada)
+ *             404:
+ *                description: La nota no fue encontrada en la base de datos
+ */
+router.get("/:id/public", noteController.getPublicNote);
+
 /**
  * @swagger
  *    /notes:

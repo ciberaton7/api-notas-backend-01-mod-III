@@ -10,7 +10,8 @@ export default class NoteMongoRepository {
             imageUrl: noteEntity.imageUrl,
             isPrivate: noteEntity.isPrivate,
             password: noteEntity.password,
-            userId: noteEntity.userId
+            userId: noteEntity.userId,
+            categoryId: noteEntity.categoryId //LINEA AGREGADA PARA EL EJERCICIO 3.2, se agrega categoryId al momento de guardar la nota en Mongo
         });
         const savedNote = await note.save();
         return savedNote.toObject();

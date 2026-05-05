@@ -11,6 +11,8 @@ import { connectMongo } from './infraestructure/database/mongo/conection.js';
 import {connectMysql} from './infraestructure/database/mysql/connection.js';
 import {setupSwagger} from './infraestructure/config/swagger.config.js';
 
+import categoryRoutes from "./presentation/routes/category.routes.js";//SE AGREGA EJERCICIO 3.1
+
 import dns from "node:dns/promises";
 dns.setServers(["1.1.1.1"]);
 //import dns from "node:dns/promises";
@@ -38,6 +40,7 @@ app.use('/api/v1/auth',authRoutes);
 
 })*/
 app.use('/api/v1/notes', noteRoutes);
+app.use("/api/v1/categories", categoryRoutes); //AGREGADO EJERCICIO 3.1
 
 app.get('/api/v1/health', (req, res) => 
                                     {

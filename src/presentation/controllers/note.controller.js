@@ -71,4 +71,20 @@ export default class NoteController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    getPublicNote = async (req, res) => {
+        try {
+            const { id } = req.params; // Sacamos el ID de la ruta (/api/v1/notes/123/public)
+            const note = await this.noteService.getPublicNoteById(id);
+            
+            res.status(200).json(note);
+        } catch (error) {
+            // Si el error es por privacidad, devolvemos un 403 (Prohibido)
+            if (error.message.includes("Acceso denegado")) {
+                return res.status(403).json({ error: error.message });
+            }
+            // Si es porque no se encontró, devolvemos 404 (No encontrado)
+            res.status(404).json({ error: error.message });
+        }
+    }
 }

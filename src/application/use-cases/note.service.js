@@ -62,5 +62,22 @@ export default class NoteService
         
         return deletedNote;
     }
+
+    // acá ponemos el servicio solicitado en el ejercicio 3.3, que es el servicio para obtener las notas de un usuario filtradas por categorí
+    async getPublicNoteById(noteId) {
+        // 1. Buscamos la nota en la base de datos usando el método que ya tienes
+        const note = await this.noteRepository.findById(noteId);
+        
+        // 2. Si no existe, lanzamos error
+        if (!note) throw new Error("Nota no encontrada");
+        
+        // 3. Verificamos si es privada, si lo es bloqueamos el acceso
+        if (note.isPrivate === true) {
+            throw new Error("Acceso denegado: Esta nota es privada y no puede compartirse");
+        }
+        
+        // 4. Si pasa las validaciones, la devolvemos
+        return note;
+    }
 }
 
