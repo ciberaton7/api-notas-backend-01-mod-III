@@ -11,6 +11,7 @@ const noteSchema = new Schema({
     imageUrl:{type:String},
     password: {type:String},
     userId:{type:String, required:true},
+    isPrivate: { type: Boolean, default: false },
     categoryId: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
